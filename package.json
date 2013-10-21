@@ -1,0 +1,20 @@
+{
+  "name": "store-redis",
+  "version": "0.1.0",
+  "description": "A simple redis store for backbone-orm's query caching",
+  "main": "./redis_store",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vidigami/store-redis.git"
+  },
+  "keywords": [
+    "redis",
+    "store",
+    "backbone-orm"
+  ],
+  "dependencies" : {
+  },
+  "devDependencies": {
+  },
+  "license": "MIT"
+}
