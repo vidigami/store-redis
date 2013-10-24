@@ -27,6 +27,4 @@ module.exports = class RedisStore
   destroy: (key, callback) =>
     @client.del(key, callback)
 
-  del: @destroy
-
-  reset: (callback) -> callback()
+  reset: (callback) -> @client.flushall callback
