@@ -12,9 +12,9 @@
     "store",
     "backbone-orm"
   ],
-  "dependencies" : {
+  "dependencies": {
+    "redis": "0.9.x"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "license": "MIT"
 }
