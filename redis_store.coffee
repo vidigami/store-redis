@@ -3,14 +3,14 @@ redis = require 'redis'
 
 module.exports = class RedisStore
   constructor: (options) ->
-    {url, port, host, password, @timeout} = options
+    {url, port, host, password, redis_options, @timeout} = options
     if url
       parsed_url = UrlUtils.parse(url)
       port = parsed_url.port
       host = parsed_url.hostname
       password = parsed_url.auth?.split(':')[1]
 
-    @client = redis.createClient(port, host)
+    @client = redis.createClient(port, host, redis_options)
     @client.auth(password) if password
 
   set: (key, value, callback) =>
