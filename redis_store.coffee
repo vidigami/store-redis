@@ -1,12 +1,6 @@
 UrlUtils = require 'url'
 redis = require 'redis'
 
-try
-  # Attempt to use parse from backbone-orm
-  parse = require('backbone-orm/lib/json_utils').parse
-catch e
-  parse = JSON.parse
-
 module.exports = class RedisStore
   constructor: (options) ->
     {url, port, host, password, redis_options, @timeout} = options
