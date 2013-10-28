@@ -1,6 +1,7 @@
+_ = require 'underscore'
+moment = require 'moment'
 UrlUtils = require 'url'
 redis = require 'redis'
-_ = require 'underscore'
 
 module.exports = class RedisStore
   constructor: (options) ->
@@ -34,17 +35,17 @@ module.exports = class RedisStore
   #
   # @example
   #   method: (req, res) ->
-  #     query = JSONUtils.parse(req.query)
+  #     query = @parse(req.query)
   #
   # Taken from backbone-orm
   #
   parse: (values) ->
     return null if _.isNull(values) or (values is 'null')
     return values if _.isDate(values)
-    return _.map(values, JSONUtils.parse) if _.isArray(values)
+    return _.map(values, @parse) if _.isArray(values)
     if _.isObject(values)
       result = {}
-      result[key] = JSONUtils.parse(value) for key, value of values
+      result[key] = @parse(value) for key, value of values
       return result
     else if _.isString(values)
       # Date
@@ -60,6 +61,6 @@ module.exports = class RedisStore
 
       # stringified JSON
       try
-        return JSONUtils.parse(values) if values = JSON.parse(values)
+        return @parse(values) if values = JSON.parse(values)
       catch err
     return values
