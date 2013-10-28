@@ -13,7 +13,8 @@
     "backbone-orm"
   ],
   "dependencies": {
-    "redis": "0.9.x"
+    "redis": "0.9.x",
+    "underscore": "1.5.x"
   },
   "devDependencies": {},
   "license": "MIT"

@@ -1,5 +1,6 @@
 UrlUtils = require 'url'
 redis = require 'redis'
+_ = require 'underscore'
 
 module.exports = class RedisStore
   constructor: (options) ->
