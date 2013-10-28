@@ -39,7 +39,7 @@ module.exports = class RedisStore
   #
   # Taken from backbone-orm
   #
-  parse: (values) ->
+  parse: (values) =>
     return null if _.isNull(values) or (values is 'null')
     return values if _.isDate(values)
     return _.map(values, @parse) if _.isArray(values)
@@ -52,12 +52,6 @@ module.exports = class RedisStore
       if (values.length >= 20) and values[values.length-1] is 'Z'
         date = moment.utc(values)
         return if date and date.isValid() then date.toDate() else values
-
-      # Boolean
-      return true if values is 'true'
-      return false if values is 'false'
-
-      return match[0] if match = /^\"(.*)\"$/.exec(values) # "quoted string"
 
       # stringified JSON
       try
