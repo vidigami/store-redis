@@ -2,16 +2,25 @@
   "name": "store-redis",
   "version": "0.1.0",
   "description": "A simple redis store for backbone-orm's query caching",
-  "main": "./redis_store",
+  "main": "./lib/redis_store.js",
   "license": "MIT",
+  "author": "Gwilym Humphreys (https://github.com/gwilymhumphreys)",
+  "contributors": ["Kevin Malakoff (https://github.com/kmalakoff)"],
   "repository": {"type": "git", "url": "https://github.com/vidigami/store-redis.git"},
-  "keywords": [
-    "redis",
-    "store",
-    "backbone-orm"
-  ],
-  "dependencies": {
-    "redis": "0.9.x"
+  "keywords": ["redis", "store", "backbone-orm" ],
+  "engines": {"node": "*"},
+  "scripts": {
+    "build": "coffee -o lib -c src",
+    "watch": "coffee -o lib -w src",
+    "clean": "rm -rf lib/*",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "redis": "0.9.x",
+    "underscore": "*"
+  },
+  "devDependencies": {
+    "coffee-script": "*"
+  },
 }
