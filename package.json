@@ -2,10 +2,18 @@
   "name": "store-redis",
   "version": "0.1.0",
   "description": "A simple redis store for backbone-orm's query caching",
-  "main": "./redis_store",
+  "main": "./lib/redis_store",
   "repository": {
     "type": "git",
     "url": "https://github.com/vidigami/store-redis.git"
+  },
+  "scripts": {
+    "build": "coffee -o lib -c src",
+    "watch": "coffee -o lib -w src",
+    "clean": "rm -rf lib/*",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "redis",
@@ -16,6 +24,8 @@
     "redis": "0.9.x",
     "underscore": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "coffee-script": "*"
+  },
   "license": "MIT"
 }
