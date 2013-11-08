@@ -7,7 +7,7 @@
   "author": "Gwilym Humphreys (https://github.com/gwilymhumphreys)",
   "contributors": ["Kevin Malakoff (https://github.com/kmalakoff)"],
   "repository": {"type": "git", "url": "https://github.com/vidigami/store-redis.git"},
-  "keywords": ["redis", "store", "backbone-orm" ],
+  "keywords": ["redis", "store", "cache", "backbone-orm" ],
   "engines": {"node": "*"},
   "scripts": {
     "build": "coffee -o lib -c src",
