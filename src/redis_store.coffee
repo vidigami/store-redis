@@ -15,16 +15,46 @@ module.exports = class RedisStore
     @client = redis.createClient(port, host, redis_options)
     @client.auth(password) if password
 
-  set: (key, value, callback) =>
+  hset: (hash, key, value, callback) =>
+    console.log "SET ", hash, key, value
+    value?._redis_set_at = moment().utc().toDate().toISOString()
+    @client.hset(hash, key, JSON.stringify(value), callback)
+
+  hget: (hash, key, callback) =>
+    console.log 'HGETTING', hash, key
+    @client.hget hash, key, (err, result) =>
+      return callback(err) if err
+      result = @parse(result)
+      if result?._redis_set_at
+        now = moment().utc()
+        console.log 'DIFFF', now.diff(result._redis_set_at)
+        if now.diff(result._redis_set_at) > @timeout
+          console.log 'DESTROYING', hash, key
+          @destroyHashKey hash, key, (err) => callback(err)
+        else
+          callback(null, result)
+      else
+        console.log 'ND', hash, key, result?.length
+        callback(null, result)
+
+  set: (hash, key, value, callback) =>
+    return @hset(hash, key, value, callback) if arguments.length is 4
+    (callback = value; value = key; key = hash)
     if @timeout
       @client.psetex(key, @timeout, JSON.stringify(value), callback)
     else
       @client.set(key, JSON.stringify(value), callback)
 
-  get: (key, callback) =>
+  get: (hash, key, callback) =>
+    return @hget(hash, key, callback) if arguments.length is 3
+    (callback = key; key = hash)
     @client.get key, (err, result) =>
       return callback(err) if err
       callback(null, @parse(result))
+
+  destroyHashKey: (hash, key, callback) =>
+    console.log 'destroyHash', hash, key
+    @client.hdel(hash, key, callback)
 
   destroy: (key, callback) =>
     @client.del(key, callback)
