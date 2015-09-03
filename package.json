@@ -1,6 +1,6 @@
 {
   "name": "store-redis",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple redis store for backbone-orm's query caching",
   "main": "./lib/redis_store.js",
   "license": "MIT",
