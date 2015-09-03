@@ -74,12 +74,12 @@ module.exports = class RedisStore
       result[key] = @parse(value) for key, value of values
       return result
     else if _.isString(values)
-      # Date
-      if (values.length >= 20) and values[values.length-1] is 'Z'
-        date = moment.utc(values)
-        return if date and date.isValid() then date.toDate() else values
-      # Stringified JSON
       try
+        # Date
+        if (values.length >= 20) and values[values.length-1] is 'Z'
+          date = moment.utc(values)
+          return if date and date.isValid() then date.toDate() else values
+        # Stringified JSON
         return @parse(values) if values = JSON.parse(values)
       catch err
     return values
