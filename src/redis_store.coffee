@@ -10,7 +10,7 @@ module.exports = class RedisStore
       parsed_url = UrlUtils.parse(url)
       port = parsed_url.port
       host = parsed_url.hostname
-      password = parsed_url.auth?.split(':')[1]
+      password = parsed_url.auth?.split(':')[1] unless password
 
     @client = redis.createClient(port, host, redis_options)
     @client.auth(password) if password
